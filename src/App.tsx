@@ -1,3 +1,10 @@
+import { Route, Routes } from "react-router-dom";
+import { PDFPage } from "./pdfPage";
+
 export const App = () => {
-  return <div>Hello World</div>;
+  return (
+    <Routes>
+      <Route path="/" element={<PDFPage />} />
+    </Routes>
+  );
 };
