@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
@@ -8,23 +8,28 @@ export interface Row {
   value: string;
 }
 
+export interface Snapshot {
+  id?: string;
+  timestamp: number;
+  rows: Row[];
+}
+
 export const usePDFPage = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const rows = params.get("rows");
-  // const { id } = useParams();
-  // const [snapshot, setSnapshot] = useState<Snapshot>();
+  // const rows = params.get("rows");
+  const id = params.get("id");
+  const [snapshot, setSnapshot] = useState<Snapshot>();
 
   useEffect(() => {
-    fetchSnapshot("b1CuqOWKEYir19gGOcrP");
-  }, []);
+    if (id) {
+      fetchSnapshot(id);
+    }
+  }, [id]);
 
   const fetchSnapshot = async (id: string) => {
     const docRef = doc(db, "snapshots", id);
-
-    console.log((await getDoc(docRef)).data());
-
-    // setSnapshot((await getDoc(docRef)).data() as Snapshot);
+    setSnapshot((await getDoc(docRef)).data() as Snapshot);
   };
 
   // const xAxisData = params.get("xAxisData")?.split(",") || [];
@@ -41,5 +46,5 @@ export const usePDFPage = () => {
   //     }
   //   ]
 
-  return { rows: rows ? (JSON.parse(rows) as Row[]) : [] };
+  return { snapshot };
 };
