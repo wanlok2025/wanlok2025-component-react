@@ -7,6 +7,21 @@ export interface Row {
 
 export const usePDFPage = () => {
   const location = useLocation();
-  const rows = new URLSearchParams(location.search).get("rows");
-  return { rows: rows ? (JSON.parse(rows) as Row[]) : [] };
+  const params = new URLSearchParams(location.search);
+  // const rows = params.get("rows");
+  // const height = params.get("height");
+  const xAxisData = params.get("xAxisData")?.split(",") || [];
+  const data = params.get("data")?.split(",") || [];
+  return {
+    rows: [
+      {
+        type: "barchart",
+        value: JSON.stringify({
+          height: 600,
+          xAxis: [{ data: xAxisData }],
+          series: [{ data, label: "Series 1" }]
+        })
+      }
+    ]
+  };
 };
