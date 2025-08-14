@@ -1,13 +1,13 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { PDFPage } from "./pdfPage";
 
 export const App = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<PDFPage />} />
         <Route path="/:snapshotId" element={<PDFPage />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
