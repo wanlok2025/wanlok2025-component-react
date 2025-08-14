@@ -6,7 +6,7 @@ export const App = () => {
     <HashRouter>
       <Routes>
         <Route path="/" element={<PDFPage />} />
-        <Route path="/:id" element={<PDFPage />} />
+        <Route path="/:snapshotId" element={<PDFPage />} />
       </Routes>
     </HashRouter>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -15,19 +15,27 @@ export interface Snapshot {
 }
 
 export const usePDFPage = () => {
-  // const location = useLocation();
-  // const params = new URLSearchParams(location.search);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
   // const rows = params.get("rows");
-  // const id = params.get("id");
-  const { id } = useParams<{ id: string }>();
+  const id = params.get("id");
+  const { snapshotId } = useParams<{ snapshotId: string }>();
 
   const [snapshot, setSnapshot] = useState<Snapshot>();
+
+  console.log(id, snapshotId);
 
   useEffect(() => {
     if (id) {
       fetchSnapshot(id);
     }
   }, [id]);
+
+  useEffect(() => {
+    if (snapshotId) {
+      fetchSnapshot(snapshotId);
+    }
+  }, [snapshotId]);
 
   const fetchSnapshot = async (id: string) => {
     const docRef = doc(db, "snapshots", id);
