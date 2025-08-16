@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+@media print {
+  .dummy {
+    background-color: blue;
+  }
+}
