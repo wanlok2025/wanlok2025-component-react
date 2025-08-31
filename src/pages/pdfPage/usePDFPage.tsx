@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 export interface Row {
@@ -24,6 +24,8 @@ export const usePDFPage = () => {
   const [snapshot, setSnapshot] = useState<Snapshot>();
 
   console.log(id, snapshotId);
+
+  console.log("Hello World");
 
   useEffect(() => {
     if (id) {
